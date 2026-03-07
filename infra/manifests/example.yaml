@@ -1,0 +1,29 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: flink-test
+  namespace: flink
+spec:
+  image: flink-test:latest
+  imagePullPolicy: Never
+  flinkVersion: v2_2
+  flinkConfiguration:
+    jobmanager.rpc.address: flink-test.flink.svc.cluster.local
+    jobmanager.rpc.port: 6123
+    jobmanager.web.port: 8081
+    taskmanager.numberOfTaskSlots: 1
+  serviceAccount: flink
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  job:
+    jarURI: local:///opt/flink/opt/flink-dist-2.2.0.jar
+    entryClass: "org.apache.flink.client.python.PythonDriver"
+    args: ["-pyclientexec", "/opt/venv/bin/python", "-py", "/opt/flink/usrlib/main.py"]
+    parallelism: 1
+    upgradeMode: stateless

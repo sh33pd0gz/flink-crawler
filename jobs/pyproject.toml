@@ -1,0 +1,17 @@
+[project]
+name = "flink-crawler"
+version = "0.1.0"
+description = "PyFlink Web Crawler"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "apache-flink==2.2.0",
+    "python-lsp-server[all]>=1.10.1",
+    "setuptools>=80.0,<81.0",
+]
+
+[tool.uv.extra-build-dependencies]
+apache-beam = ["setuptools"]
+
+[dependency-groups]
+dev = []

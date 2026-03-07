@@ -1,0 +1,20 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkDeployment
+metadata:
+  name: flink-crawler
+  namespace: flink
+spec:
+  image: flink-crawler:latest
+  imagePullPolicy: Never
+  flinkVersion: v2_2
+  flinkConfiguration:
+    taskmanager.numberOfTaskSlots: 1
+  serviceAccount: flink
+  jobManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
+  taskManager:
+    resource:
+      memory: "2048m"
+      cpu: 1
