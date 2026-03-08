@@ -6,7 +6,8 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "apache-flink==2.2.0",
-    "python-lsp-server[all]>=1.10.1",
+    "beautifulsoup4>=4.14.3",
+    "requests>=2.32.5",
     "setuptools>=80.0,<81.0",
 ]
 
@@ -14,4 +15,6 @@ dependencies = [
 apache-beam = ["setuptools"]
 
 [dependency-groups]
-dev = []
+dev = [
+    "python-lsp-server[all]>=1.10.1",
+]
