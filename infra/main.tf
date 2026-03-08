@@ -26,4 +26,24 @@ resource "helm_release" "flink" {
   depends_on       = [helm_release.cert_manager]
 }
 
+# ollama
+resource "helm_release" "ollama" {
+  chart            = "ollama"
+  name             = "ollama"
+  repository       = "https://helm.otwld.com/"
+  version          = "v1.49.0"
+  create_namespace = true
+  namespace        = "ollama"
+  cleanup_on_fail  = true
+}
 
+# kafka
+resource "helm_release" "strimzi_kafka" {
+  chart            = "strimzi-kafka-operator"
+  name             = "strimzi-kafka-operator"
+  repository       = "https://strimzi.io/charts"
+  version          = "v0.51.0"
+  create_namespace = true
+  namespace        = "kafka"
+  cleanup_on_fail  = true
+}

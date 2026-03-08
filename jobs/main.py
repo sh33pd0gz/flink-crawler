@@ -8,7 +8,7 @@ from pyflink.datastream.state import ValueStateDescriptor
 from pyflink.table import StreamTableEnvironment
 from pyflink.common.watermark_strategy import TimestampAssigner
 
-import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 
 
@@ -75,12 +75,9 @@ class WebScrapeOnInterval(KeyedProcessFunction):
 
         # check state against record
         if ts == result[2] + 1000:  # TODO parametrize the interval
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'}
-            response = requests.get(
-                "https://scores24.live/en/table-tennis/l-tt-elite-series-1", headers=headers)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
+            scraper = cloudscraper.create_scraper()
+            data = scraper.get("https://scores24.live/en/table-tennis/l-tt-elite-series-1").text
+            soup = BeautifulSoup(data, 'html.parser')
             yield soup
 
 

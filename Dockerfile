@@ -15,7 +15,7 @@ RUN apt-get update -y && \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64
 RUN python3 -m venv /opt/venv
-RUN /opt/venv/bin/pip install apache-flink==2.2.0 beautifulsoup4
+RUN /opt/venv/bin/pip install apache-flink==2.2.0 beautifulsoup4 cloudscraper
 RUN chown -R flink:flink /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
